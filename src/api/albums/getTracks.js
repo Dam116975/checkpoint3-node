@@ -1,12 +1,13 @@
-module.exports = (req, res) => {
-  
-};
+module.exports = (req, res) => {};
 const database = require('../../../database');
 
 module.exports = (req, res) => {
   const id = parseInt(req.params.id_album);
   database
-    .query('SELECT * FROM track JOIN album ON album.id=track.id_album', [id])
+    .query(
+      'SELECT album.title AS albumt, track.title AS titlet, youtube_url FROM track JOIN album ON album.id=track.id_album',
+      [id]
+    )
     .then(([album]) => {
       if (album[0] != null) {
         res.json(album[0]);
